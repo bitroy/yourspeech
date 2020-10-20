@@ -1,0 +1,11 @@
+.pageloader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.pageloader__image {
+  height: 5rem;
+  width: 5rem;
+}

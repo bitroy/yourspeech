@@ -1,0 +1,15 @@
+.navbar {
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  width: 100%;
+  background-color: black;
+}
+
+.navbar__div {
+  font-weight: bold;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  cursor: pointer;
+}
