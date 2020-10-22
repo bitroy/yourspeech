@@ -8,7 +8,10 @@ import {
 } from "@material-ui/core";
 import { Save as SaveIcon, CloseSharp as CloseSharpIcon } from "@material-ui/icons";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { history } from "routes/AppRouter";
+import { firebase } from "../../firebase/firebase";
+import { storeNewSpeech } from "./speechAction";
 import Editor from "./Editor";
 
 const useStyles = makeStyles((theme) => ({
@@ -35,14 +38,24 @@ const useStyles = makeStyles((theme) => ({
 const WriteSpeechForm = () => {
   const classes = useStyles();
   const { register, control, handleSubmit } = useForm();
+  const dispatch = useDispatch();
 
   const handleCloseClick = React.useCallback((e) => {
     history.push("/home");
   }, []);
 
   const onSubmit = (data) => {
-    alert(JSON.stringify(data));
+    const speech = {
+      createdAt: new Date(),
+      writer: data.writer,
+      title: data.title,
+      editor: data.editor,
+    }
+    dispatch(storeNewSpeech(speech));
+    history.push("/home");
   }
+
+  const currentUser = firebase.auth().currentUser.displayName;
 
   return (
     <Paper className={classes.speechFormContainer} elevation={6}>
@@ -53,18 +66,23 @@ const WriteSpeechForm = () => {
       >
         Write Your Speech
       </Typography>
-      <Typography
-        className={classes.speechFormCreatedBy}
-        variant="h6"
-        align="left"
-      >
-        Created by: Pranoy Roy
-      </Typography>
       <form 
         className={classes.speechForm} 
         onSubmit={handleSubmit(onSubmit)}
         noValidate
       >
+        <TextField
+          id="speechwriter"
+          name="writer"
+          label="Created By"
+          variant="outlined"
+          defaultValue={currentUser}
+          inputRef={register}
+          InputProps={{
+            readOnly: true
+          }}
+          fullWidth
+        />
         <TextField
           variant="outlined"
           margin="normal"

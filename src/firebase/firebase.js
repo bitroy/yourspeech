@@ -22,8 +22,7 @@ const uiConfig = {
   ],
 };
 
-// const database = firebase.database();
+const database = firebase.database();
 const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 
-// export { firebase, uiConfig, googleAuthProvider, database as default };
-export { firebase, uiConfig, googleAuthProvider };
+export { firebase, uiConfig, googleAuthProvider, database as default };

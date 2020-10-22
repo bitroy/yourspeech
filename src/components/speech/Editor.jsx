@@ -7,7 +7,7 @@ import "react-quill/dist/quill.snow.css";
 const useStyles = makeStyles((theme) => ({
   wrapperStyle: {
     height: "45vh",
-    marginTop: "1rem",
+    marginTop: theme.spacing(1),
   },
   quillStyle: {
     height: "80%",
