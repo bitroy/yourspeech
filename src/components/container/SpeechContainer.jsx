@@ -1,23 +1,21 @@
-
 import React from "react";
 import { makeStyles } from "@material-ui/core";
-import SpeechItem from "./SpeechItem";
+import SpeechesList from "components/speech/SpeechesList";
 
 const useStyles = makeStyles((theme) => ({
-  cardList: {
+  speechContainer: {
     display: "flex",
-    flexDirection: "column"
   },
 }));
 
-const SpeechesList = () => {
+const SpeechContainer = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.cardsList}>
-      <SpeechItem />
+    <div className={classes.speechContainer}>
+      <SpeechesList />
     </div>
   );
 };
 
-export default SpeechesList;
+export default SpeechContainer;

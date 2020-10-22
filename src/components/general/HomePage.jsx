@@ -1,21 +1,14 @@
 import React from "react";
-import Header from "./Header";
-import styles from "../../styles/HomePage.module.css";
-import UserInfoCard from "../user/UserInfoCard";
-import SpeechesList from "../speech/SpeechesList";
+import AddSpeechButton from "components/speech/AddSpeechButton";
+import SpeechContainer from "components/container/SpeechContainer";
 
-const HomePage = () => (
-  <>
-    <Header />
-    <div className={styles.layout_parent}>
-      <div className={styles.layout_leftside}>
-        <UserInfoCard />
-      </div>
-      <div className={styles.layout_rightside}>
-        <SpeechesList />
-      </div>
-    </div>
-  </>
-);
+const HomePage = () => {
+  return (
+    <>
+      <AddSpeechButton />
+      <SpeechContainer />
+    </>
+  );
+};
 
 export default HomePage;

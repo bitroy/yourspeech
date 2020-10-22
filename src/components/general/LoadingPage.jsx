@@ -1,15 +1,21 @@
 import React from "react";
-import loadermp4 from "../../images/loader.mp4";
-import loaderwebm from "../../images/loader.webm";
-import styles from "../../styles/LoadingPage.module.css";
+import { makeStyles } from "@material-ui/core/styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100vh"
+  },
+}));
 
 const LoadingPage = () => {
+  const classes = useStyles();
   return (
-    <div className={styles.pageloader}>
-      <video autoPlay loop muted playsInline>
-        <source src={loaderwebm} type="video/webm" />
-        <source src={loadermp4} type="video/mp4" />
-      </video>
+    <div className={classes.root}>
+      <CircularProgress />
     </div>
   );
 };

@@ -6,7 +6,7 @@ import PublicRoute from "./PublicRoute";
 import HomePage from "../components/general/HomePage";
 import LoginPage from "../components/general/LoginPage";
 import PageNotFound from "../components/general/PageNotFound";
-
+import WriteSpeech from "components/speech/WriteSpeech";
 
 export const history = createBrowserHistory();
 
@@ -16,6 +16,7 @@ const AppRouter = () => {
       <Switch>
         <PublicRoute path="/" component={LoginPage} exact={true} />
         <PrivateRoute path="/home" component={HomePage} />
+        <PrivateRoute path="/add" component={WriteSpeech} />
         <PublicRoute component={PageNotFound} />
       </Switch>
     </Router>
