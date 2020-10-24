@@ -5,6 +5,7 @@ import SpeechesList from "components/speech/SpeechesList";
 const useStyles = makeStyles((theme) => ({
   speechContainer: {
     display: "flex",
+    width: "100%"
   },
 }));
 

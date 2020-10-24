@@ -1,31 +1,91 @@
 import React from "react";
-import { Card, CardContent, makeStyles, Typography } from "@material-ui/core";
+import {
+  Card,
+  CardActions,
+  CardHeader,
+  Collapse,
+  Divider,
+  Grid,
+  IconButton,
+  makeStyles,
+  Paper,
+  Typography,
+} from "@material-ui/core";
+import {
+  ExpandMore as ExpandMoreIcon,
+  EditSharp as EditSharpIcon,
+} from "@material-ui/icons";
+import parse from "html-react-parser";
+import clsx from "clsx";
+import { history } from "../../routes/AppRouter";
 
 const useStyles = makeStyles((theme) => ({
   cardItem: {
-    margin: theme.spacing(1, 2),
-    cursor: "pointer",
+    margin: theme.spacing(2),
+  },
+  editorContent: {
+    margin: theme.spacing(0, 2),
+  },
+  expand: {
+    transform: "rotate(0deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    transform: "rotate(180deg)",
   },
 }));
 
-const SpeechItem = () => {
+const SpeechItem = ({ speech }) => {
   const classes = useStyles();
+  const [expanded, setExpanded] = React.useState(false);
+  const { id, createdAt, title, editor } = speech;
+  const renderDate = new Date(createdAt).toLocaleString();
 
-  const handleCardClick = () => {
-    console.log("Card Clicked!!");
+  const handleEditSpeech = () => {
+    history.push(`/edit/${id}`);
+  };
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
   };
 
   return (
-    <Card
-      className={classes.cardItem}
-      variant="outlined"
-      onClick={handleCardClick}
-    >
-      <CardContent>
-        <Typography variant="h5">Your First Speech</Typography>
-        <Typography color="textSecondary">Word of the Day</Typography>
-      </CardContent>
-    </Card>
+    <Paper elevation={3} className={classes.cardItem}>
+      <Card variant="outlined">
+        <CardActions disableSpacing>
+          <CardHeader title={title} subheader={renderDate} />
+          <IconButton
+            className={clsx(classes.expand, {
+              [classes.expandOpen]: expanded,
+            })}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="Expand Speech"
+          >
+            <ExpandMoreIcon />
+          </IconButton>
+        </CardActions>
+        <Divider />
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <Grid container justify="flex-end">
+            <IconButton
+              className={classes.editButton}
+              aria-label="Edit Speech"
+              onClick={handleEditSpeech}
+            >
+              <EditSharpIcon />
+            </IconButton>
+          </Grid>
+          <Divider />
+          <Typography className={classes.editorContent} variant="body2">
+            {parse(editor)}
+          </Typography>
+        </Collapse>
+      </Card>
+    </Paper>
   );
 };
 

@@ -1,12 +1,12 @@
 import React from "react";
 import AddSpeechButton from "components/speech/AddSpeechButton";
-import SpeechContainer from "components/container/SpeechContainer";
+import SpeechesList from "components/speech/SpeechesList";
 
 const HomePage = () => {
   return (
     <>
       <AddSpeechButton />
-      <SpeechContainer />
+      <SpeechesList />
     </>
   );
 };

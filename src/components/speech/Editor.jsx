@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Editor = (props) => {
   const classes = useStyles();
-  const { control } = props;
+  const { control, type, editorvalue } = props;
 
   return (
     <div className={classes.wrapperStyle}>
@@ -24,7 +24,7 @@ const Editor = (props) => {
         control={control}
         name="editor"
         rules={{ required: true }}
-        defaultValue={""}
+        defaultValue={type === "edit" ? editorvalue : ""}
         render={({ onChange, value}) => (
           <ReactQuill
             className={classes.quillStyle}
