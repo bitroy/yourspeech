@@ -2,11 +2,18 @@ import React from "react";
 import {
   Button,
   createMuiTheme,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   makeStyles,
   Paper,
   TextField,
   ThemeProvider,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@material-ui/core";
 import {
   Save as SaveIcon,
@@ -18,7 +25,11 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { history } from "routes/AppRouter";
 import { firebase } from "../../firebase/firebase";
-import { addNewSpeechToDB, editSpeechToDB, removeSpeechFromDB } from "./speechAction";
+import {
+  addNewSpeechToDB,
+  editSpeechToDB,
+  removeSpeechFromDB,
+} from "./speechAction";
 import Editor from "./Editor";
 
 const useStyles = makeStyles((theme) => ({
@@ -56,15 +67,26 @@ const WriteSpeechForm = ({ type, id, createdAt, createdBy, title, editor }) => {
   const classes = useStyles();
   const { register, control, handleSubmit } = useForm();
   const dispatch = useDispatch();
+  const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("xs"));
 
-  const handleBackClick = React.useCallback(() => {
+  const handleBackClick = () => {
     history.push("/home");
-  }, []);
+  };
 
-  const handleRemoveClick = React.useCallback(() => {
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleRemoveClick = () => {
     dispatch(removeSpeechFromDB(id));
     history.push("/home");
-  });
+  };
 
   const onSubmit = (data) => {
     const speech = {
@@ -74,12 +96,12 @@ const WriteSpeechForm = ({ type, id, createdAt, createdBy, title, editor }) => {
       editor: data.editor,
     };
 
-    if(type === "edit") {
+    if (type === "edit") {
       dispatch(editSpeechToDB(id, speech));
     } else {
       dispatch(addNewSpeechToDB(speech));
     }
-    
+
     history.push("/home");
   };
 
@@ -157,12 +179,33 @@ const WriteSpeechForm = ({ type, id, createdAt, createdBy, title, editor }) => {
                 <Button
                   variant="contained"
                   color="secondary"
-                  onClick={handleRemoveClick}
+                  onClick={handleClickOpen}
                   startIcon={<DeleteRoundedIcon />}
                 >
                   Remove
                 </Button>
               </ThemeProvider>
+              <Dialog
+                fullScreen={fullScreen}
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="speech-remove-confirmation"
+              >
+                <DialogTitle>Are you Sure?</DialogTitle>
+                <DialogContent>
+                  <DialogContentText>
+                    This speech will be permanently deleted
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button autoFocus onClick={handleRemoveClick} color="primary">
+                    Yes
+                  </Button>
+                  <Button autoFocus onClick={handleClose} color="primary">
+                    No
+                  </Button>
+                </DialogActions>
+              </Dialog>
             </>
           ) : (
             <Button
