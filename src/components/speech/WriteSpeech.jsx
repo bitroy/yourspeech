@@ -5,4 +5,4 @@ const WriteSpeech = () => {
   return <WriteSpeechForm />;
 };
 
-export default WriteSpeech;
+export default React.memo(WriteSpeech);

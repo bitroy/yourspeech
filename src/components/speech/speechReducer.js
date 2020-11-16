@@ -14,7 +14,7 @@ const speechReducer = (state = [], action) => {
         return speech;
       });
     case "REMOVE_SPEECH":
-      return state.filter(speech => speech.id !== action.id);
+      return state.filter((speech) => speech.id !== action.id);
     case "GET_ALL_SPEECHES":
       return action.speeches;
     default:

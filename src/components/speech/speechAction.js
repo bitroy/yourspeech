@@ -39,7 +39,7 @@ export const editSpeechToDB = (id, speech) => {
 
 export const removeSpeech = (id) => ({
   type: "REMOVE_SPEECH",
-  id
+  id,
 });
 
 export const removeSpeechFromDB = (id, speech) => {
@@ -56,7 +56,7 @@ export const removeSpeechFromDB = (id, speech) => {
 
 export const getSpeeches = (speeches) => ({
   type: "GET_ALL_SPEECHES",
-  speeches
+  speeches,
 });
 
 export const getSpeechesFromDB = () => {
@@ -67,7 +67,7 @@ export const getSpeechesFromDB = () => {
       .once("value")
       .then((snapshot) => {
         const speeches = [];
-        snapshot.forEach( chidlSnapshot => {
+        snapshot.forEach((chidlSnapshot) => {
           speeches.push({
             id: chidlSnapshot.key,
             ...chidlSnapshot.val(),
@@ -75,5 +75,5 @@ export const getSpeechesFromDB = () => {
         });
         dispatch(getSpeeches(speeches));
       });
-  }
-}
+  };
+};

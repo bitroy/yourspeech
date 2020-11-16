@@ -29,4 +29,4 @@ const AddSpeechButton = () => {
   );
 };
 
-export default AddSpeechButton;
+export default React.memo(AddSpeechButton);

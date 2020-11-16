@@ -9,4 +9,4 @@ const EditSpeech = (props) => {
   return <WriteSpeechForm type="edit" {...speech} />;
 };
 
-export default EditSpeech;
+export default React.memo(EditSpeech);

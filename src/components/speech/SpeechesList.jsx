@@ -1,31 +1,25 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core";
-import { useDispatch, useSelector } from "react-redux";
-import { getSpeechesFromDB } from "./speechAction";
+import { Grid, makeStyles } from "@material-ui/core";
+import { useSelector } from "react-redux";
+import getSpeechesSelector from "./speechSelector";
 import SpeechItem from "./SpeechItem";
 
-const useStyles = makeStyles((theme) => ({
-  cardList: {
-    display: "flex",
-    flexDirection: "column",
-    flex: 1,
-  },
-}));
-
 const SpeechesList = () => {
-  const classes = useStyles();
-  const dispatch = useDispatch();
-  const speeches = useSelector(state => state.speeches);
-
-  React.useEffect(() => {
-    dispatch(getSpeechesFromDB());
-  }, []);
+  const speeches = useSelector((state) =>
+    getSpeechesSelector(state.speeches, state.filters)
+  );
 
   return (
-    <div className={classes.cardsList}>
-      {speeches ? speeches.map((speech) => <SpeechItem key={speech.id} speech={speech} />) : null}
-    </div>
+    <Grid container direction="column">
+      <Grid item xs={12}>
+        {speeches
+          ? speeches.map((speech) => (
+              <SpeechItem key={speech.id} speech={speech} />
+            ))
+          : null}
+      </Grid>
+    </Grid>
   );
 };
 
-export default SpeechesList;
+export default React.memo(SpeechesList);

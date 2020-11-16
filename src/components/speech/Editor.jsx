@@ -7,11 +7,11 @@ import "react-quill/dist/quill.snow.css";
 const useStyles = makeStyles((theme) => ({
   wrapperStyle: {
     height: "45vh",
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(),
   },
   quillStyle: {
     height: "80%",
-  }
+  },
 }));
 
 const Editor = (props) => {
@@ -25,7 +25,7 @@ const Editor = (props) => {
         name="editor"
         rules={{ required: true }}
         defaultValue={type === "edit" ? editorvalue : ""}
-        render={({ onChange, value}) => (
+        render={({ onChange, value }) => (
           <ReactQuill
             className={classes.quillStyle}
             theme="snow"
@@ -38,4 +38,4 @@ const Editor = (props) => {
   );
 };
 
-export default Editor;
+export default React.memo(Editor);

@@ -8,7 +8,6 @@ import {
   Grid,
   IconButton,
   makeStyles,
-  Paper,
   Typography,
 } from "@material-ui/core";
 import {
@@ -53,40 +52,38 @@ const SpeechItem = ({ speech }) => {
   };
 
   return (
-    <Paper elevation={3} className={classes.cardItem}>
-      <Card variant="outlined">
-        <CardActions disableSpacing>
-          <CardHeader title={title} subheader={renderDate} />
+    <Card elevation={5} className={classes.cardItem}>
+      <CardActions disableSpacing>
+        <CardHeader title={title} subheader={renderDate} />
+        <IconButton
+          className={clsx(classes.expand, {
+            [classes.expandOpen]: expanded,
+          })}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="Expand Speech"
+        >
+          <ExpandMoreIcon />
+        </IconButton>
+      </CardActions>
+      <Divider />
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <Grid container justify="flex-end">
           <IconButton
-            className={clsx(classes.expand, {
-              [classes.expandOpen]: expanded,
-            })}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="Expand Speech"
+            className={classes.editButton}
+            aria-label="Edit Speech"
+            onClick={handleEditSpeech}
           >
-            <ExpandMoreIcon />
+            <EditSharpIcon />
           </IconButton>
-        </CardActions>
+        </Grid>
         <Divider />
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <Grid container justify="flex-end">
-            <IconButton
-              className={classes.editButton}
-              aria-label="Edit Speech"
-              onClick={handleEditSpeech}
-            >
-              <EditSharpIcon />
-            </IconButton>
-          </Grid>
-          <Divider />
-          <Typography className={classes.editorContent} variant="body2">
-            {parse(editor)}
-          </Typography>
-        </Collapse>
-      </Card>
-    </Paper>
+        <Typography className={classes.editorContent} variant="body2">
+          {parse(editor)}
+        </Typography>
+      </Collapse>
+    </Card>
   );
 };
 
-export default SpeechItem;
+export default React.memo(SpeechItem);
