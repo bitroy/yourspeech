@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Card,
   CardActions,
@@ -8,19 +7,23 @@ import {
   Grid,
   IconButton,
   makeStyles,
-  Typography,
+  Typography
 } from "@material-ui/core";
 import {
-  ExpandMore as ExpandMoreIcon,
   EditSharp as EditSharpIcon,
+  ExpandMore as ExpandMoreIcon
 } from "@material-ui/icons";
-import parse from "html-react-parser";
 import clsx from "clsx";
+import parse from "html-react-parser";
+import React from "react";
 import { history } from "../../routes/AppRouter";
 
 const useStyles = makeStyles((theme) => ({
   cardItem: {
     margin: theme.spacing(2),
+  },
+  cardItemHeader: {
+    fontSize: "1rem"
   },
   editorContent: {
     margin: theme.spacing(0, 2),
@@ -40,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
 const SpeechItem = ({ speech }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
+
   const { id, createdAt, title, editor } = speech;
   const renderDate = new Date(createdAt).toLocaleString();
 
@@ -52,9 +56,9 @@ const SpeechItem = ({ speech }) => {
   };
 
   return (
-    <Card elevation={5} className={classes.cardItem}>
+    <Card className={classes.cardItem}>
       <CardActions disableSpacing>
-        <CardHeader title={title} subheader={renderDate} />
+        <CardHeader className={classes.cardItemHeader} title={title} subheader={renderDate} />
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,
@@ -86,4 +90,4 @@ const SpeechItem = ({ speech }) => {
   );
 };
 
-export default React.memo(SpeechItem);
+export default SpeechItem;

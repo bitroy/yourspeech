@@ -42,7 +42,7 @@ export const removeSpeech = (id) => ({
   id,
 });
 
-export const removeSpeechFromDB = (id, speech) => {
+export const removeSpeechFromDB = (id) => {
   return (dispatch) => {
     const uid = firebase.auth().currentUser.uid;
     database

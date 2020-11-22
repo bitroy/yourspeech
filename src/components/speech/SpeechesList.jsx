@@ -1,8 +1,8 @@
+import { Grid } from "@material-ui/core";
 import React from "react";
-import { Grid, makeStyles } from "@material-ui/core";
 import { useSelector } from "react-redux";
-import getSpeechesSelector from "./speechSelector";
 import SpeechItem from "./SpeechItem";
+import getSpeechesSelector from "./speechSelector";
 
 const SpeechesList = () => {
   const speeches = useSelector((state) =>

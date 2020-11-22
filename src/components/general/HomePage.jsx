@@ -1,8 +1,8 @@
-import React from "react";
 import { Divider } from "@material-ui/core";
+import Filters from "components/filters/Filters";
 import AddSpeechButton from "components/speech/AddSpeechButton";
 import SpeechesList from "components/speech/SpeechesList";
-import Filters from "components/speech/Filters";
+import React from "react";
 
 const HomePage = () => {
   return (
@@ -16,4 +16,4 @@ const HomePage = () => {
   );
 };
 
-export default React.memo(HomePage);
+export default HomePage;

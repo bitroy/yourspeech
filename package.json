@@ -23,6 +23,10 @@
     "react-responsive-modal": "^5.1.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
+    "react-virtualized": "^9.22.2",
+    "react-virtualized-auto-sizer": "^1.0.2",
+    "react-window": "^1.8.6",
+    "react-window-scroller": "^1.0.10",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0"
