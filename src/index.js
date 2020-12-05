@@ -1,8 +1,9 @@
 import LoadingPage from "components/general/LoadingPage";
+import { getSpeechesFromDB } from "components/speech/speechAction";
 import React from "react";
 import ReactDOM from "react-dom";
 import { history } from "routes/AppRouter";
-import App from "./App";
+import App, { applicationStore } from "./App";
 import { auth } from "./firebase/firebase";
 import "./styles/index.css";
 
@@ -31,6 +32,7 @@ auth.onAuthStateChanged((user) => {
     if (history.location.pathname === "/") {
       history.push("/home")
     }
+    applicationStore.dispatch(getSpeechesFromDB());
     renderApp();
   } else {
     renderApp();

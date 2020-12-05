@@ -15,11 +15,11 @@ const useStyles = makeStyles((theme) => ({
   cardItemHeader: {
     fontSize: "2rem",
     fontWeight: "bold",
-    cursor: "pointer"
+    cursor: "pointer",
   },
   cardItemFooter: {
     fontSize: "1rem",
-  }
+  },
 }));
 
 const SpeechItem = ({ speech }) => {
@@ -30,18 +30,26 @@ const SpeechItem = ({ speech }) => {
   const renderDate = new Date(createdAt).toLocaleString();
 
   const handleReadSpeech = () => {
-    history.push(`/read/${id}`, { speech: {
-      createdAt: renderDate,
-      createdBy,
-      title,
-      editor
-    }});
+    history.push(`/read/${id}`, {
+      speech: {
+        id,
+        createdAt: renderDate,
+        createdBy,
+        title,
+        editor,
+      },
+    });
   };
 
   return (
     <Card className={classes.cardItem}>
       <CardContent>
-        <Typography className={classes.cardItemHeader} onClick={handleReadSpeech}>{title}</Typography>
+        <Typography
+          className={classes.cardItemHeader}
+          onClick={handleReadSpeech}
+        >
+          {title}
+        </Typography>
       </CardContent>
       <Divider />
       <CardContent>

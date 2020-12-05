@@ -1,15 +1,17 @@
-import { Grid, makeStyles, Typography } from "@material-ui/core";
+import { Fab, Grid, makeStyles, Typography } from "@material-ui/core";
+import { Edit as EditIcon } from "@material-ui/icons";
 import parse from "html-react-parser";
 import React from "react";
 import { useHistory } from "react-router-dom";
+import database, { auth } from "../../firebase/firebase";
 
 const useStyles = makeStyles((theme) => ({
   readContainer: {
     margin: theme.spacing(2, "auto"),
-    [theme.breakpoints.down("xs")] : {
+    [theme.breakpoints.down("xs")]: {
       maxWidth: "90%",
     },
-    [theme.breakpoints.up("sm")] : {
+    [theme.breakpoints.up("sm")]: {
       maxWidth: "50%",
     },
   },
@@ -20,12 +22,44 @@ const useStyles = makeStyles((theme) => ({
   content: {
     fontSize: "1rem",
   },
+  floatingEditIcon: {
+    position: "fixed",
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+  },
 }));
 
 const ReadSpeech = () => {
   const classes = useStyles();
   const history = useHistory();
-  const { createdAt, createdBy, title, editor } = history.location.state.speech;
+  const [editSpeech, setEditSpeech] = React.useState(false);
+
+  const {
+    id,
+    createdAt,
+    createdBy,
+    title,
+    editor,
+  } = history.location.state.speech;
+
+  const handleEditSpeech = () => {
+    history.push(`/edit/${id}`, {
+      speech: history.location.state.speech,
+    });
+  };
+
+  const speechOwner = React.useMemo(() => {
+    const uid = auth.currentUser.uid;
+    return database
+      .ref(`users/${uid}/speeches/${id}`)
+      .once("value")
+      .then(() => true)
+      .catch(() => false);
+  }, []);
+
+  React.useEffect(() => {
+    setEditSpeech(speechOwner);
+  }, []);
 
   return (
     <Grid
@@ -34,6 +68,15 @@ const ReadSpeech = () => {
       spacing={2}
       direction="column"
     >
+      {editSpeech ? (
+        <Fab
+          color="secondary"
+          aria-label="edit"
+          className={classes.floatingEditIcon}
+        >
+          <EditIcon onClick={handleEditSpeech} />
+        </Fab>
+      ) : null}
       <Grid item>
         <Typography className={classes.title}>{title}</Typography>
       </Grid>
