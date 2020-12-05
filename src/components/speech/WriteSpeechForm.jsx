@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Button,
   createMuiTheme,
@@ -14,24 +13,23 @@ import {
   ThemeProvider,
   Typography,
   useMediaQuery,
-  useTheme,
+  useTheme
 } from "@material-ui/core";
-import {
-  Save as SaveIcon,
-  DeleteRounded as DeleteRoundedIcon,
-  ArrowBack as ArrowBackIcon,
-} from "@material-ui/icons";
 import { red } from "@material-ui/core/colors";
+import {
+  ArrowBack as ArrowBackIcon, DeleteRounded as DeleteRoundedIcon, Save as SaveIcon
+} from "@material-ui/icons";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { history } from "routes/AppRouter";
+import { useHistory } from "react-router-dom";
 import { firebase } from "../../firebase/firebase";
+import Editor from "./Editor";
 import {
   addNewSpeechToDB,
   editSpeechToDB,
-  removeSpeechFromDB,
+  removeSpeechFromDB
 } from "./speechAction";
-import Editor from "./Editor";
 
 const useStyles = makeStyles((theme) => ({
   speechFormContainer: {
@@ -66,8 +64,9 @@ const removeButtonTheme = createMuiTheme({
   },
 });
 
-const WriteSpeechForm = ({ type, id, createdAt, createdBy, title, editor }) => {
+const WriteSpeechForm = ({ type, id, createdBy, title, editor }) => {
   const classes = useStyles();
+  const history = useHistory();
   const { register, control, handleSubmit } = useForm();
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);

@@ -1,4 +1,4 @@
-import database, { firebase } from "../../firebase/firebase";
+import database, { auth } from "../../firebase/firebase";
 
 export const addNewSpeech = (speech) => ({
   type: "ADD_NEW_SPEECH",
@@ -7,7 +7,7 @@ export const addNewSpeech = (speech) => ({
 
 export const addNewSpeechToDB = (data = {}) => {
   return (dispatch) => {
-    const uid = firebase.auth().currentUser.uid;
+    const uid = auth.currentUser.uid;
     const { createdAt = "", createdBy = "", title = "", editor = "" } = data;
     const speech = { createdAt, createdBy, title, editor };
     database
@@ -27,7 +27,7 @@ export const editSpeech = (id, speech) => ({
 
 export const editSpeechToDB = (id, speech) => {
   return (dispatch) => {
-    const uid = firebase.auth().currentUser.uid;
+    const uid = auth.currentUser.uid;
     database
       .ref(`users/${uid}/speeches/${id}`)
       .update(speech)
@@ -44,7 +44,7 @@ export const removeSpeech = (id) => ({
 
 export const removeSpeechFromDB = (id) => {
   return (dispatch) => {
-    const uid = firebase.auth().currentUser.uid;
+    const uid = auth.currentUser.uid;
     database
       .ref(`users/${uid}/speeches/${id}`)
       .remove()
@@ -61,7 +61,7 @@ export const getSpeeches = (speeches) => ({
 
 export const getSpeechesFromDB = () => {
   return (dispatch) => {
-    const uid = firebase.auth().currentUser.uid;
+    const uid = auth.currentUser.uid;
     database
       .ref(`users/${uid}/speeches`)
       .once("value")

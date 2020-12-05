@@ -1,7 +1,7 @@
-import React from "react";
 import { Button, makeStyles } from "@material-ui/core";
 import { Add as AddSharpIcon } from "@material-ui/icons";
-import { history } from "../../routes/AppRouter";
+import React from "react";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
 
 const AddSpeechButton = () => {
   const classes = useStyles();
+  const history = useHistory();
   
   const handleClick = () => {
     history.push("/add");

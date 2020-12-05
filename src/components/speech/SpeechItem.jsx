@@ -1,91 +1,54 @@
 import {
   Card,
-  CardActions,
-  CardHeader,
-  Collapse,
+  CardContent,
   Divider,
-  Grid,
-  IconButton,
   makeStyles,
   Typography
 } from "@material-ui/core";
-import {
-  EditSharp as EditSharpIcon,
-  ExpandMore as ExpandMoreIcon
-} from "@material-ui/icons";
-import clsx from "clsx";
-import parse from "html-react-parser";
 import React from "react";
-import { history } from "../../routes/AppRouter";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   cardItem: {
     margin: theme.spacing(2),
   },
   cardItemHeader: {
-    fontSize: "1rem"
+    fontSize: "2rem",
+    fontWeight: "bold",
+    cursor: "pointer"
   },
-  editorContent: {
-    margin: theme.spacing(0, 2),
-  },
-  expand: {
-    transform: "rotate(0deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: "rotate(180deg)",
-  },
+  cardItemFooter: {
+    fontSize: "1rem",
+  }
 }));
 
 const SpeechItem = ({ speech }) => {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  const history = useHistory();
 
-  const { id, createdAt, title, editor } = speech;
+  const { id, createdAt, createdBy, title, editor } = speech;
   const renderDate = new Date(createdAt).toLocaleString();
 
-  const handleEditSpeech = () => {
-    history.push(`/edit/${id}`);
-  };
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const handleReadSpeech = () => {
+    history.push(`/read/${id}`, { speech: {
+      createdAt: renderDate,
+      createdBy,
+      title,
+      editor
+    }});
   };
 
   return (
     <Card className={classes.cardItem}>
-      <CardActions disableSpacing>
-        <CardHeader className={classes.cardItemHeader} title={title} subheader={renderDate} />
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="Expand Speech"
-        >
-          <ExpandMoreIcon />
-        </IconButton>
-      </CardActions>
+      <CardContent>
+        <Typography className={classes.cardItemHeader} onClick={handleReadSpeech}>{title}</Typography>
+      </CardContent>
       <Divider />
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <Grid container justify="flex-end">
-          <IconButton
-            className={classes.editButton}
-            aria-label="Edit Speech"
-            onClick={handleEditSpeech}
-          >
-            <EditSharpIcon />
-          </IconButton>
-        </Grid>
-        <Divider />
-        <Typography className={classes.editorContent} variant="body2">
-          {parse(editor)}
+      <CardContent>
+        <Typography className={classes.cardItemFooter}>
+          {createdBy} | {renderDate}
         </Typography>
-      </Collapse>
+      </CardContent>
     </Card>
   );
 };

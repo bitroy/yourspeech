@@ -1,11 +1,11 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import WriteSpeechForm from "./WriteSpeechForm";
 
-const EditSpeech = (props) => {
-  const speech = useSelector((state) =>
-    state.speeches.find((speech) => speech.id === props.match.params.id)
-  );
+const EditSpeech = () => {
+  const history = useHistory();
+  const speech = history.location.state.speech;
+
   return <WriteSpeechForm type="edit" {...speech} />;
 };
 
