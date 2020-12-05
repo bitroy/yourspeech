@@ -1,17 +1,17 @@
-import React from "react";
 import {
-  Button,
   AppBar,
-  Toolbar,
-  Typography,
+  Button,
+  Link,
+  makeStyles,
   Menu,
   MenuItem,
-  Link,
+  Toolbar,
+  Typography
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import { AccountCircle } from "@material-ui/icons";
-import { history } from "../../routes/AppRouter";
-import { firebase } from "../../firebase/firebase";
+import React from "react";
+import { useHistory } from "react-router-dom";
+import { auth } from "../../firebase/firebase";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,7 +31,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MenuAppBar() {
   const classes = useStyles();
+  const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
+
   const open = Boolean(anchorEl);
 
   const handleMenu = (event) => {
@@ -47,10 +49,8 @@ export default function MenuAppBar() {
   };
 
   const handleLogout = () => {
-    firebase.auth().signOut();
+    auth.signOut();
   };
-
-  const renderDisplayName = firebase.auth().currentUser.displayName;
 
   return (
     <div className={classes.root}>
@@ -61,36 +61,37 @@ export default function MenuAppBar() {
               YourSpeech
             </Link>
           </Typography>
-
-          <div>
-            <Button
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleMenu}
-              color="inherit"
-            >
-              {renderDisplayName}
-              <AccountCircle className={classes.marginLeft} />
-            </Button>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={open}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={handleLogout}>Logout</MenuItem>
-            </Menu>
-          </div>
+          {!!auth.currentUser?.uid ? (
+            <div>
+              <Button
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                {auth.currentUser.displayName}
+                <AccountCircle className={classes.marginLeft} />
+              </Button>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={open}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+              </Menu>
+            </div>
+          ) : null}
         </Toolbar>
       </AppBar>
     </div>

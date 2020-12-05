@@ -1,11 +1,10 @@
-import "./styles/index.css";
+import LoadingPage from "components/general/LoadingPage";
 import React from "react";
 import ReactDOM from "react-dom";
-import { history } from "./routes/AppRouter";
-import { firebase } from "./firebase/firebase";
-import LoadingPage from "./components/general/LoadingPage";
-import App, { applicationStore } from "./App";
-import { getSpeechesFromDB } from "components/speech/speechAction";
+import { history } from "routes/AppRouter";
+import App from "./App";
+import { auth } from "./firebase/firebase";
+import "./styles/index.css";
 
 let hasRendered = false;
 const renderApp = () => {
@@ -27,13 +26,12 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-firebase.auth().onAuthStateChanged((user) => {
-  if (user) {
-    applicationStore.dispatch(getSpeechesFromDB());
-    renderApp();
+auth.onAuthStateChanged((user) => {
+  if (user?.emailVerified) {
     if (history.location.pathname === "/") {
-      history.push("/home");
+      history.push("/home")
     }
+    renderApp();
   } else {
     renderApp();
     history.push("/");
