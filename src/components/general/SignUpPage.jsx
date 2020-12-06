@@ -6,7 +6,7 @@ import {
   Grid,
   makeStyles,
   TextField,
-  Typography
+  Typography,
 } from "@material-ui/core";
 import { LockOutlined as LockOutlinedIcon } from "@material-ui/icons";
 import React from "react";
@@ -55,11 +55,11 @@ const SignUpPage = () => {
             auth.currentUser
               .sendEmailVerification()
               .then(() => auth.signOut())
-              .catch((error) => console.log(error));
+              .catch((error) => console.log(error.message));
           })
-          .catch((error) => console.log(error));
+          .catch((error) => console.log(error.message));
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error.message));
   };
 
   return (
@@ -138,7 +138,7 @@ const SignUpPage = () => {
           >
             Sign Up
           </Button>
-          <Grid container justify="flex-end">
+          <Grid container>
             <Grid item>
               <Link to="/" onClick={handleRedirectLogin}>
                 Already have an account? Sign in

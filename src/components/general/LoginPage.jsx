@@ -1,15 +1,13 @@
 import {
   Avatar,
   Button,
-  Checkbox,
   Container,
   CssBaseline,
   Divider,
-  FormControlLabel,
   Grid,
   makeStyles,
   TextField,
-  Typography
+  Typography,
 } from "@material-ui/core";
 import { LockOutlined as LockOutlinedIcon } from "@material-ui/icons";
 import { getSpeechesFromDB } from "components/speech/speechAction";
@@ -37,8 +35,12 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(2, 0),
   },
-  marginTopTwo: {
+  links: {
     marginTop: theme.spacing(2),
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      flexDirection: "column",
+    },
   },
 }));
 
@@ -79,7 +81,7 @@ const LoginPage = () => {
       .signInWithPopup(googleAuthProvider)
       .then(() => dispatch(getSpeechesFromDB()))
       .catch((error) => {
-        console.log(error);
+        console.log(error.message);
       });
   };
 
@@ -124,10 +126,6 @@ const LoginPage = () => {
             autoComplete="current-password"
             inputRef={register}
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
           <Button
             type="submit"
             fullWidth
@@ -147,7 +145,7 @@ const LoginPage = () => {
             Sign in with Google
           </Button>
           <Divider />
-          <Grid container className={classes.marginTopTwo}>
+          <Grid container className={classes.links} spacing={2}>
             <Grid item xs>
               <Link to="/forgotpassword" onClick={handleRedirectForgotPassword}>
                 Forgot password?
