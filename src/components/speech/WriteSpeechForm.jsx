@@ -13,11 +13,13 @@ import {
   ThemeProvider,
   Typography,
   useMediaQuery,
-  useTheme
+  useTheme,
 } from "@material-ui/core";
 import { red } from "@material-ui/core/colors";
 import {
-  ArrowBack as ArrowBackIcon, DeleteRounded as DeleteRoundedIcon, Save as SaveIcon
+  ArrowBack as ArrowBackIcon,
+  DeleteRounded as DeleteRoundedIcon,
+  Save as SaveIcon,
 } from "@material-ui/icons";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -28,7 +30,7 @@ import Editor from "./Editor";
 import {
   addNewSpeechToDB,
   editSpeechToDB,
-  removeSpeechFromDB
+  removeSpeechFromDB,
 } from "./speechAction";
 
 const useStyles = makeStyles((theme) => ({
@@ -49,11 +51,11 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(0, 2),
   },
   speechFormButtonGroup: {
-    [theme.breakpoints.down('sm')]: {
-      marginTop: theme.spacing(1)
+    [theme.breakpoints.down("sm")]: {
+      marginTop: theme.spacing(1),
     },
-    [theme.breakpoints.down('xs')]: {
-      marginTop: theme.spacing(2)
+    [theme.breakpoints.down("xs")]: {
+      marginTop: theme.spacing(2),
     },
   },
 }));
@@ -74,7 +76,7 @@ const WriteSpeechForm = ({ type, id, createdBy, title, editor }) => {
   const fullScreen = useMediaQuery(theme.breakpoints.down("xs"));
 
   const handleBackClick = () => {
-    history.push("/home");
+    history.goBack();
   };
 
   const handleClickOpen = () => {
@@ -123,17 +125,11 @@ const WriteSpeechForm = ({ type, id, createdBy, title, editor }) => {
         </Grid>
         <Grid item>
           {type === "edit" ? (
-            <Typography
-              variant="h4"
-              align="center"
-            >
+            <Typography variant="h4" align="center">
               Edit Your Speech
             </Typography>
           ) : (
-            <Typography
-              variant="h4"
-              align="center"
-            >
+            <Typography variant="h4" align="center">
               Write Your Speech
             </Typography>
           )}
@@ -177,7 +173,11 @@ const WriteSpeechForm = ({ type, id, createdBy, title, editor }) => {
             </Grid>
             <Grid item>
               {type === "edit" ? (
-                <Grid container justify="space-between" className={classes.speechFormButtonGroup}>
+                <Grid
+                  container
+                  justify="space-between"
+                  className={classes.speechFormButtonGroup}
+                >
                   <Button
                     type="submit"
                     variant="contained"
