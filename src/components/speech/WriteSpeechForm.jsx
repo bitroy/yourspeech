@@ -89,7 +89,9 @@ const WriteSpeechForm = ({ type, id, createdBy, title, editor }) => {
 
   const handleRemoveClick = () => {
     dispatch(removeSpeechFromDB(id));
-    history.push("/home");
+    setTimeout(() => {
+      history.push("/home");
+    }, 1000);
   };
 
   const onSubmit = (data) => {

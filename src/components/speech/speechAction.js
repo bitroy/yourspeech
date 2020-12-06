@@ -49,7 +49,7 @@ export const removeSpeechFromDB = (id) => {
       .ref(`users/${uid}/speeches/${id}`)
       .remove()
       .then(() => {
-        dispatch(removeSpeech({ id }));
+        dispatch(removeSpeech(id));
       });
   };
 };

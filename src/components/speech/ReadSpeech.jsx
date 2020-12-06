@@ -73,8 +73,9 @@ const ReadSpeech = () => {
           color="secondary"
           aria-label="edit"
           className={classes.floatingEditIcon}
+          onClick={handleEditSpeech}
         >
-          <EditIcon onClick={handleEditSpeech} />
+          <EditIcon />
         </Fab>
       ) : null}
       <Grid item>
