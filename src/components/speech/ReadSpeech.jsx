@@ -55,11 +55,11 @@ const ReadSpeech = () => {
       .once("value")
       .then(() => true)
       .catch(() => false);
-  }, []);
+  }, [id]);
 
   React.useEffect(() => {
     setEditSpeech(speechOwner);
-  }, []);
+  }, [speechOwner]);
 
   return (
     <Grid
