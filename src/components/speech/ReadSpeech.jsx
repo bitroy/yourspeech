@@ -1,5 +1,11 @@
-import { Fab, Grid, makeStyles, Typography } from "@material-ui/core";
-import { Edit as EditIcon } from "@material-ui/icons";
+import {
+  Grid,
+  IconButton,
+  makeStyles,
+  Tooltip,
+  Typography,
+} from "@material-ui/core";
+import { Edit as EditIcon, Share as ShareIcon } from "@material-ui/icons";
 import parse from "html-react-parser";
 import React from "react";
 import { useHistory } from "react-router-dom";
@@ -23,6 +29,11 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "1rem",
   },
   floatingEditIcon: {
+    position: "fixed",
+    bottom: theme.spacing(2),
+    left: theme.spacing(2),
+  },
+  floatingShareIcon: {
     position: "fixed",
     bottom: theme.spacing(2),
     right: theme.spacing(2),
@@ -69,14 +80,22 @@ const ReadSpeech = () => {
       direction="column"
     >
       {editSpeech ? (
-        <Fab
-          color="secondary"
-          aria-label="edit"
-          className={classes.floatingEditIcon}
-          onClick={handleEditSpeech}
-        >
-          <EditIcon />
-        </Fab>
+        <Grid container>
+          <Tooltip title="Edit Speech">
+            <IconButton aria-label="edit-speech" color="primary" size="medium">
+              <EditIcon onClick={handleEditSpeech} />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Share Speech">
+            <IconButton
+              aria-label="share-speech"
+              color="secondary"
+              size="medium"
+            >
+              <ShareIcon />
+            </IconButton>
+          </Tooltip>
+        </Grid>
       ) : null}
       <Grid item>
         <Typography className={classes.title}>{title}</Typography>
