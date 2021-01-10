@@ -6,7 +6,7 @@ import {
   Menu,
   MenuItem,
   Toolbar,
-  Typography
+  Typography,
 } from "@material-ui/core";
 import { AccountCircle } from "@material-ui/icons";
 import React from "react";
@@ -61,7 +61,7 @@ export default function MenuAppBar() {
               YourSpeech
             </Link>
           </Typography>
-          {!!auth.currentUser?.uid ? (
+          {!!auth.currentUser?.uid && auth.currentUser?.emailVerified ? (
             <div>
               <Button
                 aria-label="account of current user"

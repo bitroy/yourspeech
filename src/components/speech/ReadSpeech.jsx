@@ -5,7 +5,7 @@ import {
   Tooltip,
   Typography,
 } from "@material-ui/core";
-import { Edit as EditIcon, Share as ShareIcon } from "@material-ui/icons";
+import { Edit as EditIcon } from "@material-ui/icons";
 import parse from "html-react-parser";
 import React from "react";
 import { useHistory } from "react-router-dom";
@@ -84,15 +84,6 @@ const ReadSpeech = () => {
           <Tooltip title="Edit Speech">
             <IconButton aria-label="edit-speech" color="primary" size="medium">
               <EditIcon onClick={handleEditSpeech} />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Share Speech">
-            <IconButton
-              aria-label="share-speech"
-              color="secondary"
-              size="medium"
-            >
-              <ShareIcon />
             </IconButton>
           </Tooltip>
         </Grid>

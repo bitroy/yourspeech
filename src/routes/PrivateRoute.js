@@ -8,7 +8,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        !!auth.currentUser?.uid ? (
+        !!auth.currentUser?.uid && auth.currentUser?.emailVerified ? (
           <>
             <NavHeader />
             <Component {...props} />

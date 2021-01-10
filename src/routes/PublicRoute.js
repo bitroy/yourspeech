@@ -8,7 +8,7 @@ const PublicRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        !!auth.currentUser?.uid ? (
+        !!auth.currentUser?.uid && auth.currentUser?.emailVerified ? (
           <Redirect to="/home" />
         ) : (
           <>
